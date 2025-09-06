@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ about.name }} | Portfolio</title>
+  <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <header class="header" data-aos="fade-down">
+    <nav class="navbar">
+      <div class="logo">{{ about.name }}</div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="{% static 'assets/JaspreetCV.pdf' %}" download class="btn">Download CV</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero" data-aos="fade-in">
+    <div class="hero-text">
+      <h1>Hello, I'm <span class="highlight">{{ about.name }}</span></h1>
+      <strong>{{ about.title }}</strong>
+    </div>
+  </section>
+
+  <section id="about" class="about-section" data-aos="fade-up">
+    <div class="about-container">
+      <div class="about-image">
+        {% if about.image %}
+          <img src="{{ about.image.url }}" alt="{{ about.name }}" />
+        {% else %}
+          <img src="{% static 'images/Jaspreet.jpg' %}" alt="{{ about.name }}" />
+        {% endif %}
+      </div>
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>{{ about.description|linebreaks }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" data-aos="fade-up">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      {% for skill in skills %}
+        <div class="skill">
+          {{ skill.name }}
+          <div class="bar"style="width: {{ skill.level }}%;"></div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="projects" data-aos="zoom-in">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      {% for project in projects %}
+        <div class="project-card">
+          <i class="{{ project.icon }}"></i> <strong>{{ project.title }}</strong><br>
+          <a href="{{ project.github_link }}" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="contact" data-aos="fade-up">
+  <h2 class="section-title">Contact Me</h2>
+  <div class="contact-container">
+    
+    <!-- Map -->
+    <div class="map-container">
+      <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6658.050286963924!2d77.2031401752886!3d28.62026397567146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2ad0879e8d3%3A0x8e7ce002997415ce!2sGurudwara%20Rakabganj%20Road%2C%20New%20Delhi%2C%20Delhi%20110001%2C%20India!5e1!3m2!1sen!2sus!4v1757145032729!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form">
+      <form id="contact-form" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Your Name" name="name" required>
+        <input type="email" placeholder="Your Email" name="email" required>
+        <textarea placeholder="Your Message" name="message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      {% if success %}
+        <p style="color: green;">Message sent successfully!</p>
+      {% endif %}
+      {% if error %}
+        <p style="color: red;">{{ error }}</p>
+      {% endif %}
+
+      <div class="contact-phone">
+        <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> 
+          <a href="tel:+919315565477">+91 93155 65477</a>
+        </p>
+        <p><strong><i class="fas fa-map-marker-alt"></i> Address:</strong> 
+          Gurudwara Rakab Ganj, New Delhi – 110001
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+ <button id="backToTopBtn" title="Go to top">&#8679;</button>
+  <footer>
+    <p>&copy; 2025 {{ about.name }} | All Rights Reserved</p>
+  </footer>
+
+  <script src="{% static 'Script/script.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+ 
+</body>
+</html>
