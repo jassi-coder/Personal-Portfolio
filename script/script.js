@@ -58,3 +58,36 @@ document.addEventListener("DOMContentLoaded", function () {
     header.style.top = "0"; // ensure header visible when back at top
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const formData = new FormData(form);
+
+        const response = await fetch("", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        let messageDiv = document.getElementById("form-response");
+        if (!messageDiv) {
+            messageDiv = document.createElement("div");
+            messageDiv.id = "form-response";
+            form.prepend(messageDiv);
+        }
+        messageDiv.innerText = result.message;
+        messageDiv.style.color = result.status === "success" ? "green" : "red";
+
+        if (result.status === "success") form.reset();
+    });
+});

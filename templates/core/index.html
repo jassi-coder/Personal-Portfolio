@@ -87,21 +87,28 @@
 
     <!-- Form -->
     <div class="contact-form">
-      <form id="contact-form" method="post">
-        {% csrf_token %}
-        <input type="text" placeholder="Your Name" name="name" required>
-        <input type="email" placeholder="Your Email" name="email" required>
-        <textarea placeholder="Your Message" name="message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+  
 
-      {% if success %}
-        <p style="color: green;">Message sent successfully!</p>
+<!-- Dynamic Django Form -->
+  <form id="contact-form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send Message</button>
+  </form>
+  <!-- Messages -->
+  {% if messages %}
+  {% for message in messages %}
+    <p 
+      {% if message.tags == "success" %}
+        style="color: green; font-weight: bold;"
+      {% else %}
+        style="color: red; font-weight: bold;"
       {% endif %}
-      {% if error %}
-        <p style="color: red;">{{ error }}</p>
-      {% endif %}
-
+    >
+      {{ message }}
+    </p>
+  {% endfor %}
+{% endif %}
       <div class="contact-phone">
         <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> 
           <a href="tel:+919315565477">+91 93155 65477</a>
