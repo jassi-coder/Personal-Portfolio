@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x^pgwprue8n!=@g&f7-e5y8^bz2(o4m(6oj^i^954dr7wq*jo9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['personal-portfolio-tqtv.onrender.com']
 
