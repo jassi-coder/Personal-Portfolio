@@ -40,7 +40,7 @@
         {% if about.image %}
           <img src="{{ about.image.url }}" alt="{{ about.name }}" />
         {% else %}
-          <img src="{% static 'about/Jaspreet.jpg' %}" alt="Jaspreet Singh" />
+          <img src="{% static 'about/Jaspreet.jpg' %}" alt="{{about.name}}" />
         {% endif %}
       </div>
       <div class="about-text">
