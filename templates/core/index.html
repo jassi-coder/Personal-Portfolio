@@ -38,7 +38,7 @@
     <div class="about-container">
       <div class="about-image">
         {% if about.image %}
-          <img src="{{ about.image.url }}" alt="{{ about.name }}" />
+          <img src="{{ about.image.url }}" alt="{{ about.name }}"onerror="this.onerror=null;this.src='{% static 'about/Jaspreet.jpg' %}';" />
         {% else %}
           <img src="{% static 'about/Jaspreet.jpg' %}" alt={{about.name}} />
         {% endif %}
